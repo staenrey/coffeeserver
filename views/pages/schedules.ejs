@@ -1,0 +1,16 @@
+
+<h1>List of schedules</h1>
+<ul>
+    <% for (let i = 0; i < schedules.length; i++) { %>
+        <li>
+            <%= users[schedules[i].user_id].firstname %>
+            <%= users[schedules[i].user_id].lastname %>
+
+            <%= weekDays[schedules[i].day] %>
+            <%= schedules[i].start_at %>
+            &ndash;
+            <%= schedules[i].end_at %>
+        </li>
+
+    <% } %>
+</ul>
