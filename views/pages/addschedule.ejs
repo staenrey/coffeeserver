@@ -1,42 +1,36 @@
 <h1>Add a new schedule</h1>
 
-<form class="add-form" method="POST" action="/schedules">
+<form class="add-form" method="POST" action="/new">
+
     <label>
-        User *
-        <select name="user_id" required>
-            <% for (let i = 0; i < users.length; i++) { %>
-                <option value=<%= i %>>
-                    <%= users[i].firstname %>
-                    <%= users[i].lastname %>
-                </option>
-            <% } %>
-        </select>
+        Username *
+        <input type="text" name="username" required>
     </label>
     
 
     <label>
-        Day *
-        <select name="day" required>
+        Day of the week *
+        <select name="day_of_week" required>
             <option value=1>Monday</option>
             <option value=2>Tuesday</option>
             <option value=3>Wednesday</option>
             <option value=4>Thursday</option>
             <option value=5>Friday</option>
             <option value=6>Saturday</option>
-            <option value=0>Sunday</option>
+            <option value=7>Sunday</option>
         </select>
     </label>
     
 
     <label>
         Start at *
-        <input type="text" name="start_at" required>
+        <input type="time" name="start_time" required>
     </label>
     
 
     <label>
         End at *
-        <input type="text" name="end_at" required>
+        <input type="time" name="end_time" required>
     </label>
     
 

@@ -3,6 +3,8 @@ const crypto = require("crypto")
 const expressLayouts = require("express-ejs-layouts")
 const path = require("path")
 
+const database = require('./database')
+
 const data = require("./data.js")
 const utils = require("./utils.js")
 
@@ -19,10 +21,14 @@ app.set("view engine", "ejs")
 
 
 app.get("/", (req, res) => {
-    res.render("pages/schedules", {schedules: data.schedules, users: data.users, weekDays: utils.weekDays})
+    database.any("SELECT * FROM schedules;")
+        .then((schedules_array) => {
+            res.render("pages/schedules", {schedules: schedules_array, weekDays: utils.weekDays})
+        })
+        .catch(error => {
+            res.send(error)
+        })
 })
-
-//most specific route should go first
 
 app.get("/new", (req, res) => {
     res.render("pages/addschedule", {users: data.users})
@@ -30,10 +36,17 @@ app.get("/new", (req, res) => {
 
 app.post("/new", (req, res) => {
     const newSchedule = req.body
-    newSchedule.user_id = parseInt(newSchedule.user_id, 10)
-    newSchedule.day = parseInt(newSchedule.day, 10)
-    data.schedules.push(newSchedule)
-    res.redirect("/")
+   
+    newSchedule.day_of_week = parseInt(newSchedule.day_of_week, 10)
+
+    database.none('INSERT INTO schedules(username, day_of_week, start_time, end_time) VALUES ($1, $2, $3, $4)', [newSchedule.username, newSchedule.day_of_week, newSchedule.start_time, newSchedule.end_time])
+        .then(() => {
+            res.redirect("/")
+        })
+        .catch(error => {
+            res.send(error)
+        })
+
 })
 
 app.listen(port, () => {
