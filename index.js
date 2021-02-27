@@ -4,7 +4,6 @@ const expressLayouts = require("express-ejs-layouts")
 const path = require("path")
 
 const database = require('./database')
-
 const data = require("./data.js")
 const utils = require("./utils.js")
 

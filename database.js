@@ -12,7 +12,7 @@ const connection = {
 
 const db = pgp(connection) // var db equals to a result of a function pgp that processed a connection var
 
-module.exports = db // says that when in a file (in our case, index.js) we say require("./database"), we get db as a result [LATER]
+module.exports = db // says that when in a file (in our case, index.js) we say require("./database"), we get db as a result
 
 // INSERT INTO schedules(username, day_of_week, start_time, end_time) VALUES ('staenreytest', 1, '00:00:00', '00:00:01');
 
